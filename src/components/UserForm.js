@@ -6,11 +6,10 @@ import Success from "./Success";
 
 const initialValues = {
   name: "",
-  fatherName: "",
   email: "",
-  age: "",
-  highestEducation: "",
-  occupation: "",
+  phone: "",
+  facebook: "",
+  github: "",
   address: "",
 };
 
@@ -26,27 +25,27 @@ function UserForm() {
     setStep(step - 1);
   };
 
-  const onHandleChange = (e) => {
-    const { name, value } = e.target;
-
+  const inputChange = (input) => (e) => {
     setValues({
       ...values,
-      [name]: value,
+      [input]: e.target.value,
     });
   };
 
+  const props = { values, nextStep, prevStep, inputChange };
+
   switch (step) {
     case 1:
-      return <PersonalDetails nextStep={nextStep} />;
+      return <PersonalDetails {...props} />;
 
     case 2:
-      return <BioData nextStep={nextStep} prevStep={prevStep} />;
+      return <BioData {...props} />;
 
     case 3:
-      return <Confirm nextStep={nextStep} prevStep={prevStep} />;
+      return <Confirm {...props} />;
 
     case 4:
-      return <Success />;
+      return <Success {...props} />;
   }
 }
 
